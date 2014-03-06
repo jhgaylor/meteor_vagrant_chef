@@ -40,6 +40,22 @@ template "/etc/init/leaderboard.conf" do
   group "root"
 end
 
+bash "build_app" do
+  cwd "/vagrant"
+  user "leader"
+  group "leader"
+  code <<-EOH
+    if [ -d "bundle" ]; then
+      rm -rf bundle
+    fi
+    tar -zxvf bundle.tgz
+    mv -rf bundle /home/leader
+    cd /home/leader/bundle/programs/server
+    sudo npm uninstall fibers
+    sudo npm install fibers
+    EOH
+end
+
 # instruct the service to restart
 service "leaderboard" do
   provider Chef::Provider::Service::Upstart
