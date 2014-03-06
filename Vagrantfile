@@ -16,8 +16,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
   config.ssh.private_key_path = "~/.ssh/digitalocean"
   config.vm.provider :digital_ocean do |provider|
-    provider.client_id = "f850a74d0ddb7bedb95813972c4d94d8"
-    provider.api_key = "bbde4a864348509fb1bf506d2fa5ee59"
+    provider.client_id = "<DO_client_id>"
+    provider.api_key = "<DO_api_key>"
     # discover other values on the create droplet page
     provider.image = "Ubuntu 12.04.3 x64"
     provider.region = "New York 2"
