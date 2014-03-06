@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "digital_ocean"
   config.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
-
+  athletetracer.ssh.private_key_path = "~/.ssh/id_rsa"
   config.vm.provider :digital_ocean do |provider|
     provider.client_id = "<DO_client_id>"
     provider.api_key = "<DO_api_key>"
