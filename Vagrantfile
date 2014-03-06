@@ -13,6 +13,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "digital_ocean"
   config.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
 
+  config.vm.provider :digital_ocean do |provider|
+    provider.client_id = "<DO_client_id>"
+    provider.api_key = "<DO_api_key>"
+    # discover other values on the create droplet page
+    provider.image = "Ubuntu 12.04.3 x64"
+    provider.region = "New York 2"
+  end
+
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # config.vm.box_url = "http://domain.com/path/to/above.box"
