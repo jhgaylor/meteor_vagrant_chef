@@ -24,3 +24,24 @@ user "leader" do
   supports :manage_home => true
   shell "/bin/bash"
 end
+
+# uses an attribute of the nginx cookbook
+template "#{node.default['nginx']['dir']}/sites-available/default" do
+  source "nginx.conf.erb"
+  mode 0777
+  owner node.default['nginx']['user']
+  group node.default['nginx']['user']
+end
+
+template "/etc/init/leaderboard.conf" do
+  source "leaderboard.upstart.conf.erb"
+  mode 0777
+  owner "root"
+  group "root"
+end
+
+# instruct the service to restart
+service "leaderboard" do
+  provider Chef::Provider::Service::Upstart
+  action :restart
+end
