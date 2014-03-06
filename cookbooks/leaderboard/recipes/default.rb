@@ -8,7 +8,8 @@ include_recipe "build-essential"
 # install a webserver to proxy requests
 include_recipe "nginx"
 
-
+# install meteor but don't install meteorite
+node.default['meteor']['install_meteorite'] = false
 include_recipe "meteor"
 
 # packages use the platform package system
@@ -40,16 +41,16 @@ template "/etc/init/leaderboard.conf" do
 end
 
 bash "build_app" do
-  cwd "/home/leader"
+  cwd "/vagrant"
   user "leader"
   group "leader"
   code <<-EOH
     if [ -d "bundle" ]; then
       rm -rf bundle
     fi
-    cp /vagrant/bundle.tgz ./bundle.tgz
     tar -zxvf bundle.tgz
-    cd ./bundle/programs/server
+    mv -rf bundle /home/leader
+    cd /home/leader/bundle/programs/server
     sudo npm uninstall fibers
     sudo npm install fibers
     EOH
